@@ -1,0 +1,14 @@
+public class pair implements Comparable<pair> {
+        int r;
+        int c;
+        int h;
+        pair(int r , int c , int h){
+            this.r = r;
+            this.c = c;
+            this.h = h;
+        }
+        @Override
+        public int compareTo(pair a){
+            return this.h - a.h;
+        }
+        
