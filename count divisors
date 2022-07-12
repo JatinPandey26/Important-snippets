@@ -9,3 +9,19 @@ int countDivisors(int n) {
 	}
 	return ans;
 }
+
+// count divisors till n
+
+void countDivisorsTill_N(int n) {
+	vector<int> vec(n + 1);
+
+	for (int i = 1 ; i <= n ; i++) {
+		for (int j = i ; j <= n ; j += i) {
+			vec[j]++;
+		}
+	}
+
+	for (int i : vec) {
+		cout << i << endl;
+	}
+}
