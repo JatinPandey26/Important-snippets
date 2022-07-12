@@ -1,0 +1,15 @@
+int binaryExponentiation(int a , int b , int mod) {
+
+	if (b == 0) return a;
+
+	if (b % 2 == 0) {
+		int t = binaryExponentiation(a, b / 2, mod);
+		return t % mod;
+	}
+	else {
+		int t = binaryExponentiation(a, (b - 1) / 2, mod);
+		return (t * a) % mod;
+	}
+
+
+}
