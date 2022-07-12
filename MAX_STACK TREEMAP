@@ -1,0 +1,101 @@
+  public static class MaxStack {
+     
+     public static class Node{
+       int val;
+       Node pre;
+       Node next;
+
+       Node(int val){
+         this.val = val;
+       }
+     } 
+      
+    TreeMap<Integer,List<Node>> tmap;
+    Node head;
+    Node tail;
+
+    public MaxStack() {
+      tmap = new TreeMap<>();
+      head = new Node(-1);
+      tail = new Node(-1);
+
+      tail.pre = head;
+      head.next = tail;
+
+    }
+
+    void addTop(Node node){
+    
+    Node pre = tail.pre;
+
+    pre.next = node;
+    node.pre = pre;
+
+    tail.pre = node;
+    node.next = tail;
+
+    if(tmap.containsKey(node.val)){
+     tmap.get(node.val).add(node); 
+    }
+    else{
+      List<Node> list = new ArrayList<>();
+      list.add(node);
+      tmap.put(node.val,list);
+    }
+
+    }
+
+    public int removeNode(Node node){
+
+    Node pre = node.pre;
+    Node nextNode = node.next;
+    pre.next = nextNode;
+    nextNode.pre = pre;
+
+    return node.val;
+
+    }
+
+
+    public void push(int x) {
+    Node node = new Node(x);
+    addTop(node);
+    }
+
+    public int pop() {
+      int x = removeNode(tail.pre);
+      
+      List<Node> list = tmap.get(x);
+      list.remove(list.size()-1);
+
+      if(list.size() == 0){
+        tmap.remove(x);
+      }
+
+      return x;
+    }
+
+    public int top() {
+      return tail.pre.val;
+    }
+
+    public int peekMax() {
+      int x = tmap.lastKey();
+      return x;
+    }
+
+    public int popMax() {
+      int x = tmap.lastKey();
+      List<Node> list = tmap.get(x);
+      Node node = list.get(list.size()-1);
+      list.remove(list.size()-1);
+       
+      if(list.size() == 0){
+        tmap.remove(x);
+      }
+      removeNode(node);
+
+      return x;
+    }
+
+  }
